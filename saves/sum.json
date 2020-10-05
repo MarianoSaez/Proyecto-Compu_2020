@@ -1,0 +1,16 @@
+{
+    "ma": {
+        "_Game__adivinadas": [
+            "H"
+        ],
+        "_Game__intentos": 999,
+        "_Game__num_players": 2,
+        "_Game__p1": "ma",
+        "_Game__p2": "as",
+        "_Game__diff": 1000,
+        "_Game__palabra": [
+            "H"
+        ],
+        "_Game__tipo": "h"
+    }
+}
