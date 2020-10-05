@@ -1,0 +1,15 @@
+language: python
+
+python:
+    - "3.6"
+
+install:
+    - pip install -r requirements.txt
+
+# command to run tests
+script:
+    - pip install parameterized
+    - coverage run test_ahorcado.py
+
+after_success:
+    - coveralls
