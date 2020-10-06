@@ -74,8 +74,8 @@ class Game_service():
     # Compara si la letra pasada como param se encuentra en la palabra
     def compare_letter(self, letter, game):
         letter = letter.upper()
-        lost = False
-        stop = False
+        lost = False  # Indicador de derrota
+        stop = False  # Indicador de victoria
         for i in range(len(game.palabra)):
             if game.palabra[i] == letter:
                 game.adivinadas[i] = letter
@@ -87,11 +87,3 @@ class Game_service():
             lost = True
             game.intentos = 'PERDIDO'
         return lost, stop
-
-# Multiplayer
-
-# Acciones fuera de juego
-
-    # Permite agregar palabras nuevas
-    def add_new_word(self):
-        pass

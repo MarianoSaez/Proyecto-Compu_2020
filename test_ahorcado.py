@@ -26,15 +26,6 @@ class TestServicio(unittest.TestCase):
         # que deberian ser identicos
         self.assertEqual(juego.__dict__, juego_dos.__dict__)
 
-    # @parameterized.expand([
-    #     ('mariano', {'_Player__name': 'mariano', '_Player__life': 0}),
-    #     ('bruno', {'_Player__name': 'bruno', '_Player__life': 0}),
-    #     ('agustin', {'_Player__name': 'agustin', '_Player__life': 0})
-    # ])
-    # def test_AII_new_player(self, name, dicc_jugador):
-    #     jugador = self.service.new_player(name)
-    #     self.assertDictEqual(jugador.__dict__, dicc_jugador)
-
     def test_BI_search_word_palabra(self):
         flag = False
         palabra, tipo = self.service.search_word()
@@ -54,8 +45,58 @@ class TestServicio(unittest.TestCase):
                 break
         self.assertTrue(flag)
 
-    def test_BII_compare_letter(self):
-        pass
+    @parameterized.expand([
+        ('PYTHON', 'p'),
+        ('TAZA', 'a'),
+        ('ESCRITORIO', 'O'),
+        ('PERRO', 'R')
+    ])
+    def test_CI_compare_letter_adivinada(self, palabra, letter):
+        game = Game(1, 'A', 'B', 1, palabra)
+        self.service.compare_letter(letter, game)
+        self.assertIn(letter.upper(), game.adivinadas)
+
+    @parameterized.expand([
+        ('PYTHON', ['A', 'B', 'C']),
+        ('TAZA', ['A', 'B', 'C']),
+        ('ESCRITORIO', ['A', 'B', 'C', 'D', 'E']),
+        ('PERRO', ['A', 'B', 'C', 'D'])
+    ])
+    def test_CII_compare_letter_intentos(self, palabra, letters):
+        game = Game(1, 'A', 'B', 1, palabra)
+        intentos_inicial = game.intentos
+        for i in letters:
+            self.service.compare_letter(i, game)
+        intentos_final = intentos_inicial - len(letters)
+        self.assertEqual(intentos_final, game.intentos)
+
+    @parameterized.expand([
+        ('SEMAFORO'),
+        ('CALCULADORA'),
+        ('PIZZA'),
+        ('CAFE'),
+        ('MILANESAS')
+    ])
+    def test_CIII_compare_letter_lost(self, palabra):
+        game = Game(1, 'A', 'B', 1, palabra)
+        for i in range(len(palabra)):
+            lost, win = self.service.compare_letter('x', game)
+        self.assertTrue(lost)
+
+    @parameterized.expand([
+        ('SEMAFORO'),
+        ('CALCULADORA'),
+        ('PIZZA'),
+        ('CAFE'),
+        ('MILANESAS')
+    ])
+    def test_CIV_compare_letter_win(self, palabra):
+        game = Game(1, 'A', 'B', 1, palabra)
+        for i in list(palabra):
+            lost, win = self.service.compare_letter(i, game)
+            if win:
+                break
+        self.assertTrue(win)
 
 
 if __name__ == "__main__":
