@@ -6,7 +6,7 @@ import os
 # ingresados por el jugador/res
 class Menu():
     def __init__(self):
-        self.service = Game_service()
+        self.service = Game_service('saves/sum.json')
 
     def clean(self):
         if os.name == 'nt':

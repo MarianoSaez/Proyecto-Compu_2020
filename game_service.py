@@ -4,12 +4,13 @@ from random import randint
 
 
 class Game_service():
-    def __init__(self):
+    def __init__(self, path):
         self.resumen = dict()
+        self.path = path
 
     def reset(self):
         self.resumen = dict()
-        with open("saves/sum.json", "w") as f:
+        with open(self.path, "w") as f:
             f.write("{ }")
             f.close()
 
@@ -25,7 +26,7 @@ class Game_service():
 
 # Acciones que se realizan al finalizar un juego
     def end_game(self, game):
-        with open("saves/sum.json", 'r+') as f:
+        with open(self.path, 'r+') as f:
             key_p1 = "%s" % game.p1
             self.resumen[key_p1] = game.__dict__
             json.dump(self.resumen, f, indent=4)
@@ -59,8 +60,6 @@ class Game_service():
         return final
 
 # Acciones dentro de una partida
-# Single Player
-
     # Recupera del repo una palabra con su tipo
     def search_word(self):
         with open("saves/pool_palabras.json") as f:

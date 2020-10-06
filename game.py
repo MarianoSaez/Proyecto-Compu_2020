@@ -2,7 +2,6 @@ class Game():
     def __init__(self, num_players, p1, p2, diff=1, palabra='', tipo=''):
         self.adivinadas = []
         self.intentos = 1
-        self.num_players = num_players  # Posiblemente no se use
         self.p1 = p1
         self.p2 = p2  # Posiblemente no se use
         self.diff = diff
@@ -14,14 +13,6 @@ class Game():
                 % (self.p1, self.concat_palabra(), self.intentos))
 
     # Atributos de una partida
-    @property
-    def num_players(self):
-        return self.__num_players
-
-    @num_players.setter
-    def num_players(self, value):
-        self.__num_players = value
-
     @property
     def p1(self):
         return self.__p1

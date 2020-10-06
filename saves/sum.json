@@ -1,16 +1,33 @@
 {
-    "ma": {
+    "luciana": {
         "_Game__adivinadas": [
-            "H"
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_",
+            "_"
         ],
-        "_Game__intentos": 999,
-        "_Game__num_players": 2,
-        "_Game__p1": "ma",
-        "_Game__p2": "as",
-        "_Game__diff": 1000,
+        "_Game__intentos": 10,
+        "_Game__p1": "luciana",
+        "_Game__p2": "camila",
+        "_Game__diff": 1,
         "_Game__palabra": [
-            "H"
+            "T",
+            "E",
+            "L",
+            "E",
+            "V",
+            "I",
+            "S",
+            "I",
+            "O",
+            "N"
         ],
-        "_Game__tipo": "h"
+        "_Game__tipo": ""
     }
 }

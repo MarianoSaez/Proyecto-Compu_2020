@@ -8,9 +8,9 @@ import json
 class TestServicio(unittest.TestCase):
     def setUp(self):
         super().setUp()
-        with open('saves/pool_palabras.json', 'r') as f:
+        with open('test_saves/pool_palabras.json', 'r') as f:
             self.repo = json.load(f)
-        self.service = Game_service()
+        self.service = Game_service('test_saves/sum.json')
 
     @parameterized.expand([
         (1, 'mariano', None, 10),
@@ -21,9 +21,6 @@ class TestServicio(unittest.TestCase):
         palabra = juego.palabra
         tipo = juego.tipo
         juego_dos = Game(num_players, p1, p2, diff, palabra, tipo)
-        # En principio los objetos son distintos por lo que
-        # los convierto a diccionario para comparar sus atributos
-        # que deberian ser identicos
         self.assertEqual(juego.__dict__, juego_dos.__dict__)
 
     def test_BI_search_word_palabra(self):
@@ -97,6 +94,38 @@ class TestServicio(unittest.TestCase):
             if win:
                 break
         self.assertTrue(win)
+
+    def test_DI_resumen_partida(self):
+        pass
+
+    def test_DII_resumen_partida(self):
+        pass
+
+    @parameterized.expand([
+        ('mariano', 'bruno', 'guitarra'),
+        ('nahuel', 'nicolas', 'juegos'),
+        ('luciana', 'camila', 'television')
+    ])
+    def test_EI_end_game(self, p1, p2, palabra):
+        self.service.reset()
+        game = self.service.new_game(1, p1, p2, 1, palabra)
+        resumen = self.service.end_game(game)
+        with open('test_saves/sum.json', 'r+') as f:
+            archivo = json.load(f)
+        self.assertEqual(resumen, archivo)
+
+    @parameterized.expand([
+        ('mariano', 'bruno', 'guitarra'),
+        ('nahuel', 'nicolas', 'juegos'),
+        ('luciana', 'camila', 'television')
+    ])
+    def test_FI_reset(self, p1, p2, palabra):
+        game = self.service.new_game(1, p1, p2, 1, palabra)
+        self.service.end_game(game)
+        self.service.reset()
+        with open('test_saves/sum.json', 'r') as f:
+            vacio = json.load(f)
+        self.assertEqual(vacio, {})
 
 
 if __name__ == "__main__":
