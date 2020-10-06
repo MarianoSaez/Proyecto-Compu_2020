@@ -4,3 +4,4 @@ source = .
 omit = 
 	*/virtualenv/*
     */main.py
+    */menu.py

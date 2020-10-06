@@ -23,6 +23,17 @@ class TestServicio(unittest.TestCase):
         juego_dos = Game(num_players, p1, p2, diff, palabra, tipo)
         self.assertEqual(juego.__dict__, juego_dos.__dict__)
 
+    @parameterized.expand([
+        ('semaforo'),
+        ('CALculadORA'),
+        ('pizza'),
+        ('Cafe'),
+        ('milanESAS')
+    ])
+    def test_AII_new_player(self, nombre):
+        player = self.service.new_player(nombre)
+        self.assertEqual(nombre.upper(), player)
+
     def test_BI_search_word_palabra(self):
         flag = False
         palabra, tipo = self.service.search_word()
